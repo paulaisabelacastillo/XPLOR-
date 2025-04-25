@@ -1,0 +1,107 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f4f8f3;
+  height: 100vh;
+}
+
+.container {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+.logo {
+  width: 160px;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 10;
+}
+
+.left {
+  width: 55%;
+  padding: 60px 40px;
+  text-align: center;
+  background: #f4f8f3;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.left h1 {
+  color: #004225;
+  font-size: 3.5rem;
+  margin-top: 50px;
+  margin-bottom: 20px;
+}
+
+.left p {
+  color: #004225;
+  font-size: 1.4rem;
+  margin-bottom: 30px;
+}
+
+.button {
+  width: 60%;
+  padding: 15px;
+  margin: 10px auto;
+  background: #50a47a;
+  color: white;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  border-radius: 25px;
+  font-size: 16px;
+  transition: background 0.3s;
+  text-decoration: none;
+}
+
+.button:hover {
+  background: #387255;
+}
+
+.social-links {
+  margin-top: 30px;
+  font-size: 14px;
+  color: #004225;
+}
+
+.social-links a {
+  text-decoration: none;
+  color: #004225;
+  font-weight: bold;
+}
+
+.social-links a:hover {
+  text-decoration: underline;
+}
+
+.right {
+  width: 45%;
+  background: url('img/fondo.png') center/cover no-repeat;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .left, .right {
+    width: 100%;
+    height: 50vh;
+  }
+
+  .logo {
+  width: 140px; /* antes era 80px */
+  top: 10px;
+  left: 10px;
+}
+
+}

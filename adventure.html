@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>XPLØR Missions</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* ... (tus estilos CSS) ... */
+    body {
+      background-color: #f4f8f3;
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .missions-container {
+      padding: 40px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    h1 {
+      color: #004225;
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 40px;
+    }
+
+    .missions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+    }
+
+    .mission-card {
+      background-color: white;
+      border-radius: 16px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      text-align: center;
+      transition: transform 0.2s;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .mission-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .mission-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 15px;
+    }
+
+    .mission-title {
+      font-size: 1.4rem;
+      color: #004225;
+      margin-bottom: 10px;
+    }
+
+    .mission-desc {
+      color: #333;
+      font-size: 1rem;
+      margin-bottom: 15px;
+    }
+
+    .view-mission-button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      text-decoration: none; /* Para quitar el subrayado del enlace */
+    }
+
+    .view-mission-button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="missions-container">
+    <h1>Choose Your Adventure</h1>
+    <div class="missions-grid">
+
+      <div class="mission-card">
+        <img src="img/summit.jpg" alt="Summit Park">
+        <div class="mission-title">Parque Municipal Summit</div>
+        <div class="mission-desc">Explore the wildlife, solve eco-riddles, and earn your first NFT badge!</div>
+        <a href="summit.html" class="view-mission-button">View Mission</a>
+      </div>
+
+      <div class="mission-card">
+        <img src="img/pueblito.jpeg" alt="Panama Viejo">
+        <div class="mission-title">Mi Pueblito Interiorano</div>
+        <div class="mission-desc">Walk through ancient ruins, uncover historical facts, and complete your heritage trail.</div>
+        <button class="view-mission-button">View Mission</button>
+      </div>
+
+      <div class="mission-card">
+        <img src="img/mariscos.jpeg" alt="Panama Canal">
+        <div class="mission-title">El Mercado del Marisco</div>
+        <div class="mission-desc">Navigate the locks with knowledge, learn engineering wonders and collect your canal stamp.</div>
+        <button class="view-mission-button">View Mission</button>
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>

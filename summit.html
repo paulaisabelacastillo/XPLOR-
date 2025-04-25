@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mapa Interactivo del Parque Summit</title>
+  <link rel="stylesheet" href="summit.css">
+</head>
+<body>
+  <header>Mapa Interactivo del Parque Municipal Summit</header>
+
+  <div id="mapa">
+    <div class="marker aguila-marker" style="top: 28%; left: 35%; background-image: url('img/harpia.jpeg'); background-size: cover;" data-popup="aguila" title="Área del Águila Harpía"></div>
+    <div class="marker mariposario-marker" style="top: 22%; left: 55%; background-image: url('img/mariposa.jpg'); background-size: cover;" data-popup="mariposario" title="Mariposario"></div>
+    <div class="marker bosque-marker" style="top: 40%; left: 25%; background-image: url('img/bosque.jpg'); background-size: cover;" data-popup="bosque" title="Sendero del Bosque"></div>
+    <div class="marker vivero-marker" style="top: 55%; left: 60%; background-image: url('img/vivero.jpeg'); background-size: cover;" data-popup="vivero" title="Vivero Municipal"></div>
+    <div class="marker mono-marker" style="top: 70%; left: 40%; background-image: url('img/mono.jpg'); background-size: cover;" data-popup="mono" title="Hábitat del Mono Tití"></div>
+    <div class="marker ranas-marker" style="top: 80%; left: 65%; background-image: url('img/rana.jpeg'); background-size: cover;" data-popup="ranas" title="Estanque de Ranas"></div>
+
+    <div class="popup" id="popup-aguila">
+      <button class="close-popup">✖</button>
+      <h3>🦅 Guardianes del Águila Harpía</h3>
+      <p>Escanea el QR y responde: ¿Cuál es la envergadura promedio del águila harpía?</p>
+      <button class="unlock-button" data-challenge="aguila">Desbloquear Misión</button>
+    </div>
+
+    <div class="popup" id="popup-mariposario">
+      <button class="close-popup">✖</button>
+      <h3>🦋 Exploradores del Mariposario</h3>
+      <p>¡Encuentra 3 especies diferentes de mariposas y nómbralas!</p>
+      <button class="unlock-button" data-challenge="mariposario">Desbloquear Misión</button>
+    </div>
+
+    <div class="popup" id="popup-bosque">
+      <button class="close-popup">✖</button>
+      <h3>🌳 Detectives del Bosque</h3>
+      <p>Describe 3 tipos de hojas que encuentres en el sendero.</p>
+      <button class="unlock-button" data-challenge="bosque">Desbloquear Misión</button>
+    </div>
+
+    <div class="popup" id="popup-vivero">
+      <button class="close-popup">✖</button>
+      <h3>🌱 Cuidadores del Vivero</h3>
+      <p>Escanea el QR en el invernadero y responde: ¿Qué planta nativa es ideal para zonas con sombra?</p>
+      <button class="unlock-button" data-challenge="vivero">Desbloquear Misión</button>
+    </div>
+
+    <div class="popup" id="popup-mono">
+      <button class="close-popup">✖</button>
+      <h3>🐒 Aliados del Mono Tití</h3>
+      <p>¿Qué acciones puedes tomar en tu vida diaria para proteger a especies como el mono tití?</p>
+      <button class="unlock-button" data-challenge="mono">Desbloquear Misión</button>
+    </div>
+
+    <div class="popup" id="popup-ranas">
+      <button class="close-popup">✖</button>
+      <h3>💧 Reto del Agua Viva</h3>
+      <p>¿Por qué las ranas son un indicador de la salud del ambiente?</p>
+      <button class="unlock-button" data-challenge="ranas">Desbloquear Misión</button>
+    </div>
+  </div>
+
+  <div id="challenge-screen" style="display: none;">
+    <h2 id="challenge-title"><span class="challenge-icon"></span></h2>
+    <div class="challenge-content" id="challenge-content">
+      </div>
+    <button id="return-to-map">Volver al Mapa</button>
+  </div>
+
+  <script>
+    const markers = document.querySelectorAll('.marker');
+    const popups = document.querySelectorAll('.popup');
+    const closeButtons = document.querySelectorAll('.close-popup');
+    const unlockButtons = document.querySelectorAll('.unlock-button');
+    const mapDiv = document.getElementById('mapa');
+    const challengeScreen = document.getElementById('challenge-screen');
+    const challengeTitle = document.getElementById('challenge-title');
+    const challengeContent = document.getElementById('challenge-content');
+    const returnToMapButton = document.getElementById('return-to-map');
+    const challengeIcon = document.querySelector('#challenge-title .challenge-icon');
+
+    const challengeData = {
+      'aguila': {
+        title: 'Guardianes del Águila Harpía',
+        icon: '📸',
+        content: '<p>Escanea el QR y sube una foto del código escaneado y tu respuesta:</p><input type="file" accept="image/*"><input type="text" placeholder="Envergadura en cm (opcional)"><button>Enviar Foto y Respuesta</button>'
+      },
+      'mariposario': {
+        title: 'Exploradores del Mariposario',
+        icon: '📝',
+        content: '<p>Nombra 3 especies diferentes de mariposas que encuentres:</p><textarea rows="3"></textarea><button>Enviar Nombres</button>'
+      },
+      'bosque': {
+        title: 'Detectives del Bosque',
+        icon: '📝',
+        content: '<p>Describe 3 tipos de hojas que encuentres en el sendero:</p><textarea rows="4"></textarea><button>Enviar Descripción</button>'
+      },
+      'vivero': {
+        title: 'Cuidadores del Vivero',
+        icon: '📸',
+        content: '<p>Escanea el QR en el invernadero y sube una foto del código escaneado y tu respuesta:</p><input type="file" accept="image/*"><input type="text" placeholder="Nombre de la planta"><button>Enviar Foto y Respuesta</button>'
+      },
+      'mono': {
+        title: 'Aliados del Mono Tití',
+        icon: '✅',
+        content: '<p>Elige la mejor acción para proteger al mono tití:</p><div class="options-group"><label><input type="radio" name="mono-action" value="no-cazar">No cazar.</label><label><input type="radio" name="mono-action" value="proteger-habitat">Proteger su hábitat.</label><label><input type="radio" name="mono-action" value="no-mascotas">No tenerlos como mascotas.</label></div><button>Enviar Selección</button>'
+      },
+      'ranas': {
+        title: 'Reto del Agua Viva',
+        icon: '💧',
+        content: '<p>Explica por qué las ranas son bioindicadores:</p><textarea rows="4"></textarea><button>Enviar Explicación</button>'
+      }
+    };
+
+    function mostrarPopup(id) {
+      popups.forEach(p => p.style.display = 'none');
+      document.getElementById('popup-' + id).style.display = 'block';
+    }
+
+    function cerrarPopups() {
+      popups.forEach(p => p.style.display = 'none');
+    }
+
+    cerrarPopups();
+
+    markers.forEach(marker => {
+      marker.addEventListener('click', () => {
+        const popupId = marker.dataset.popup;
+        mostrarPopup(popupId);
+      });
+    });
+
+    closeButtons.forEach(button => {
+      button.addEventListener('click', cerrarPopups);
+    });
+
+    unlockButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const popup = button.parentNode;
+        const challengeId = button.dataset.challenge;
+        const challengeInfo = challengeData[challengeId];
+
+        challengeTitle.textContent = challengeInfo.title;
+        challengeIcon.textContent = challengeInfo.icon;
+        challengeContent.innerHTML = challengeInfo.content;
+
+        mapDiv.style.display = 'none';
+        challengeScreen.style.display = 'flex';
+        cerrarPopups();
+      });
+    });
+
+    returnToMapButton.addEventListener('click', () => {
+      challengeScreen.style.display = 'none';
+      mapDiv.style.display = 'block';
+      challengeContent.innerHTML = '';
+    });
+
+    document.getElementById('mapa').addEventListener('click', (event) => {
+      if (event.target.classList.contains('popup')) {
+        cerrarPopups();
+      }
+    });
+  </script>
+</body>
+</html>

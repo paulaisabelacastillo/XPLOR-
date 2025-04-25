@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>XPLØR: Sign In</title>
+  <link rel="stylesheet" href="xplor.css" />
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-analytics.js";
+    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
+  
+    const firebaseConfig = {
+      apiKey: "AIzaSyDevEFBLiwL61zJT_yv2-jcktd-slR1C5I",
+      authDomain: "xplor-5df4a.firebaseapp.com",
+      projectId: "xplor-5df4a",
+      storageBucket: "xplor-5df4a.appspot.com",
+      messagingSenderId: "207109387595",
+      appId: "1:207109387595:web:5646b123c433db5c01a4ce",
+      measurementId: "G-TNGYB5V05R"
+    };
+  
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const auth = getAuth(app);
+  
+    window.loginUser = function () {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+  
+      if (!email || !password) {
+        alert("Please enter your email and password.");
+        return;
+      }
+  
+      signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          alert("Welcome, " + userCredential.user.email + "!");
+          window.location.href = "principal.html";
+        })
+        .catch((error) => {
+          alert("Error: " + error.message);
+        });
+    };
+  </script>
+  
+</head>
+<body>
+  <div class="container">
+    <img src="img/logo.png" alt="XPLØR Logo" class="logo" />
+    <div class="left">
+      <h1>Welcome Back</h1>
+      <p>Sign in to continue your adventure</p>
+      <form onsubmit="event.preventDefault(); loginUser();">
+        <input type="email" placeholder="Email Address" id="email" required />
+        <input type="password" placeholder="Password" id="password" required />
+        <div class="remember-me">
+          <input type="checkbox" id="remember" />
+          <label for="remember">Remember me</label>
+        </div>
+        <button type="submit" class="button">Sign In</button>
+      </form>
+      <p class="account-link">
+        Don’t have an account?
+        <a href="signup.html">Sign Up</a>
+      </p>
+    </div>
+    <div class="right" style="background: url('img/fondo.png') center/cover no-repeat;"></div>
+  </div>
+</body>
+</html>

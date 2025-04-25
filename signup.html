@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>XPLØR: Sign Up</title>
+  <link rel="stylesheet" href="xplor.css" />
+
+  <!-- Firebase SDKs -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-analytics.js";
+    import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
+    import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDevEFBLiwL61zJT_yv2-jcktd-slR1C5I",
+      authDomain: "xplor-5df4a.firebaseapp.com",
+      projectId: "xplor-5df4a",
+      storageBucket: "xplor-5df4a.appspot.com",
+      messagingSenderId: "207109387595",
+      appId: "1:207109387595:web:5646b123c433db5c01a4ce",
+      measurementId: "G-TNGYB5V05R"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    window.registerUser = async function () {
+      const email = document.getElementById("reg_email").value.trim();
+      const password = document.getElementById("reg_password").value;
+
+      if (!email || !password) {
+        alert("Por favor, completa el correo y la contraseña.");
+        return;
+      }
+
+      if (password.length < 6) {
+        alert("La contraseña debe tener al menos 6 caracteres.");
+        return;
+      }
+
+      try {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+
+        await setDoc(doc(db, "exploradores", user.uid), {
+          email: email,
+          puntos: 0,
+          aventurasCompletadas: [],
+          creadoEn: new Date()
+        });
+
+        localStorage.setItem("userEmail", email);
+        localStorage.setItem("userUID", user.uid);
+
+        alert("¡Cuenta creada con éxito! Redirigiendo...");
+
+        // Esperar brevemente antes de redirigir
+        setTimeout(() => {
+          window.location.href = "principal.html";
+        }, 100); // 100ms
+
+      } catch (error) {
+        if (error.code === "auth/email-already-in-use") {
+          alert("Este correo ya está registrado. Intenta iniciar sesión.");
+        } else if (error.code === "auth/invalid-email") {
+          alert("El correo no tiene un formato válido.");
+        } else if (error.code === "auth/weak-password") {
+          alert("Contraseña muy débil. Usa al menos 6 caracteres.");
+        } else {
+          alert("Error desconocido: " + error.message);
+        }
+      }
+    };
+  </script>
+</head>
+<body>
+  <div class="container">
+    <img src="img/logo.png" alt="XPLØR Logo" class="logo" />
+    <div class="left">
+      <h1>Join XPLØR</h1>
+      <p>Create your account to begin your mission</p>
+      <form onsubmit="event.preventDefault(); registerUser();">
+        <input type="email" placeholder="Email Address" id="reg_email" required />
+        <input type="password" placeholder="Password" id="reg_password" required />
+        <button type="submit" class="button">Sign Up</button>
+      </form>
+      <p class="account-link">
+        Already have an account?
+        <a href="login.html">Sign In</a>
+      </p>
+    </div>
+    <div class="right" style="background: url('img/fondo.png') center/cover no-repeat;"></div>
+  </div>
+</body>
+</html>

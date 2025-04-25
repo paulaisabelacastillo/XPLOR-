@@ -1,0 +1,155 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f4f8f3;
+    height: 100vh;
+    overflow: hidden;
+  }
+  
+  .container {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    position: relative;
+  }
+  
+  .logo {
+    width: 160px;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 10;
+  }
+  
+  .language-toggle {
+    position: absolute;
+    top: 80px;
+    left: 53.5%;
+    width: 70px;
+    height: 70px;
+    background-color: #50a47a;
+    border: none;
+    border-radius: 50%;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s, transform 0.3s;
+    z-index: 20;
+  }
+  
+  .language-toggle:hover {
+    background-color: #387255;
+    transform: scale(1.1);
+  }
+  
+  .left {
+    width: 55%;
+    background-color: #f4f8f3;
+    padding: 100px 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    clip-path: polygon(0 0, 90% 0, 75% 100%, 0% 100%);
+  }
+  
+  .left h1 {
+    font-size: 3.5rem;
+    color: #004225;
+    margin-bottom: 10px;
+  }
+  
+  .left p {
+    font-size: 1.4rem;
+    color: #004225;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+  
+  .left input[type="email"],
+  .left input[type="password"] {
+    width: 90%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 20px;
+    border: 1px solid #50a47a;
+    outline: none;
+    font-size: 1rem;
+  }
+  
+  .remember-me {
+    display: flex;
+    align-items: center;
+    margin: 15px 0;
+    width: 80%;
+  }
+  
+  .remember-me input {
+    margin-right: 10px;
+  }
+  
+  .button {
+    width: 100%;
+    padding: 15px;
+    background-color: #50a47a;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  .button:hover {
+    background-color: #387255;
+  }
+  
+  .account-link {
+    margin-top: 20px;
+    color: #004225;
+  }
+  
+  .account-link a {
+    text-decoration: none;
+    color: #004225;
+    font-weight: bold;
+  }
+  
+  .account-link a:hover {
+    text-decoration: underline;
+  }
+  
+  .social-links {
+    margin-top: 30px;
+    font-size: 14px;
+    color: #004225;
+  }
+  
+  .right {
+    width: 45%;
+    background: url('img/sign.png') center/cover no-repeat;
+  }
+  
+  @media (max-width: 768px) {
+    .container {
+      flex-direction: column;
+    }
+  
+    .left,
+    .right {
+      width: 100%;
+      height: 50vh;
+    }
+  
+    .logo {
+      width: 100px;
+      top: 10px;
+      left: 10px;
+    }
+  }
+  
