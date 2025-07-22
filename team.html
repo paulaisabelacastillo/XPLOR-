@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Equipo XPLØR</title>
+  <style>
+    :root {
+      --verde-principal: #4ca47b;
+      --verde-oscuro: #2e7a5e;
+      --blanco: #f9fdfb;
+      --texto: #222;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--blanco);
+      color: var(--texto);
+    }
+
+    /* Header */
+    .header {
+      background-color: var(--verde-principal);
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+    }
+
+    .header .logo {
+      font-size: 1.6em;
+      font-weight: bold;
+      color: white;
+      text-decoration: none;
+    }
+
+    .header nav a {
+      color: white;
+      margin-left: 20px;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .header nav a.active {
+      text-decoration: underline;
+    }
+
+    /* Equipo */
+    .team-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 60px auto;
+      gap: 40px;
+      max-width: 1200px;
+    }
+
+    .team-card {
+      display: flex;
+      flex-direction: row;
+      background-color: white;
+      border: 2px solid var(--verde-principal);
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      align-items: center;
+      padding: 30px;
+      width: 100%;
+      max-width: 900px;
+    }
+
+    .team-card img {
+      width: 240px;
+      height: auto;
+      border-radius: 16px;
+      margin-right: 40px;
+    }
+
+    .info h2 {
+      color: var(--verde-oscuro);
+      font-size: 1.8rem;
+      margin-bottom: 5px;
+    }
+
+    .role {
+      font-weight: bold;
+      color: var(--verde-principal);
+      margin-bottom: 15px;
+    }
+
+    .bio {
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 768px) {
+      .team-card {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .team-card img {
+        margin-right: 0;
+        margin-bottom: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <a href="index.html" class="logo">XPLØRBOT</a>
+    <nav>
+      <a href="index.html" class="active">Inicio</a>
+    </nav>
+  </header>
+
+  <div class="team-container">
+    <!-- Paula -->
+    <div class="team-card">
+      <img src="img/pau.jpeg" alt="Paula Castillo">
+      <div class="info">
+        <h2>Paula Castillo</h2>
+        <p class="role">Programación, Innovación y Desarrollo</p>
+        <p class="bio">Tengo 14 años, estudio en The Oxford School. Es mi 3er año participando en la WRO. Me encanta la programación y el diseño gráfico. En este proyecto me encargué de la creación de circuitos y parte de la programación.</p>
+      </div>
+    </div>
+
+    <!-- Santiago -->
+    <div class="team-card">
+      <img src="img/santi.jpeg" alt="Santiago González">
+      <div class="info">
+        <h2>Santiago González</h2>
+        <p class="role">Programación y Diseño 3D</p>
+        <p class="bio">Tengo 12 años, estudio en The Oxford School. Es mi 3er año participando en la WRO. Me gusta la impresión 3D y el armado. En este proyecto me encargué de parte de la programación, armado del robot y la impresión 3D.</p>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
